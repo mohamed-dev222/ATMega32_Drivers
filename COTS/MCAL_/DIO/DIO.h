@@ -115,4 +115,17 @@ status_t DIO_WriteLowNibbles(u8 Copy_u8PORT, u8 Copy_u8value);
  * @warning Ensure the target pins are configured as outputs
  */
 status_t DIO_WriteHighNibbles(u8 Copy_u8PORT, u8 Copy_u8value);
+
+/**
+ * @brief Enable internal pull-up resistor for a specific input pin
+ * @param Copy_u8PORT: DIO_PORTA, DIO_PORTB, DIO_PORTC, DIO_PORTD
+ * @param Copy_u8PIN:  DIO_PIN0 to DIO_PIN7
+ * @return OK if successful, NOK if invalid parameters
+ * @details This function configures the pin as input and sets its value to HIGH,
+ *          which activates the internal pull-up resistor on AVR microcontrollers.
+ * @note Equivalent to: DIO_setPinDirection(PORT, PIN, DIO_PIN_INPUT) followed by
+ *                     DIO_setPinValue(PORT, PIN, DIO_PIN_HIGH)
+ * @warning Only works for pins configured as input. Pull-up has no effect on output pins.
+ */
+status_t DIO_ConnectPullup(u8 Copy_u8PORT ,u8 Copy_u8PIN);
 #endif /* DIO_H_ */
