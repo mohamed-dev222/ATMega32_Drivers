@@ -211,6 +211,36 @@ status_t DIO_WriteHighNibbles(u8 Copy_u8PORT, u8 Copy_u8value)
     }
 }
 
+status_t DIO_ConnectPullup(u8 Copy_u8PORT ,u8 Copy_u8PIN)
+{
+    status_t ReturnStatus = OK;
+    status_t LocalStatus = OK;
+    
+    /* Parameter validation */
+    if (Copy_u8PORT > DIO_PORTD || Copy_u8PIN > DIO_PIN7)
+    {
+        return NOK;
+    }
+    else
+    {
+        /* Set pin as input */
+        LocalStatus = DIO_setPinDirection(Copy_u8PORT, Copy_u8PIN, DIO_PIN_INPUT);
+        if (LocalStatus != OK)
+        {
+            ReturnStatus = NOK;
+        }
+        
+        /* Enable pull-up resistor by setting pin HIGH */
+        LocalStatus = DIO_setPinValue(Copy_u8PORT, Copy_u8PIN, DIO_PIN_HIGH);
+        if (LocalStatus != OK)
+        {
+            ReturnStatus = NOK;
+        }
+    }
+    
+    return ReturnStatus;
+}
+
 /*==============================================================================
  * End of File
  *============================================================================*/
