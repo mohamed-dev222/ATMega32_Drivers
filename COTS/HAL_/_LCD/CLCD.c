@@ -2,7 +2,7 @@
  * @file CLCD.c
  * @brief Source file for Character LCD driver
  * @description Implementation of LCD control APIs supporting both 4-bit and 8-bit modes
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

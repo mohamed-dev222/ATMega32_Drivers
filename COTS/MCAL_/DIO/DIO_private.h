@@ -1,7 +1,7 @@
 /**
  * @file DIO_private.h
  * @brief Private definitions for DIO driver (ATmega32 registers mapping)
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

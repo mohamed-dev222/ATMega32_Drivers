@@ -1,7 +1,7 @@
 /**
  * @file DIO_cfg.h
  * @brief Configuration header for DIO driver Contains all user-configurable definitions and macros
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

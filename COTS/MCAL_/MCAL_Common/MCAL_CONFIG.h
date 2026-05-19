@@ -1,7 +1,7 @@
 /**
  * @file MCAL_CONFIG.h
  * @brief Global configuration for MCAL layer
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

@@ -1,10 +1,10 @@
 /**
- * @file PORT_INTERFACE.h
+ * @file PORT.h
  * @brief Public interface header for PORT initialization driver
  * @description Provides the initialization function for setting up all AVR ports
  *              based on the configuration defined in PORT_CONFIG.h.
  *              This driver handles DDR (direction) and PORT (initial value) registers.
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

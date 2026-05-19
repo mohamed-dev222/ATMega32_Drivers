@@ -4,7 +4,7 @@
  * @description Contains AVR register addresses, bit concatenation utilities,
  *              and compiled direction/initial values from configuration.
  *              This file should NOT be included directly by user application.
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 #ifndef PORT_PRIVATE_H_

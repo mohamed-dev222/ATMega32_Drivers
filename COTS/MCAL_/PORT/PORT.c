@@ -1,10 +1,10 @@
 /**
- * @file PORT_program.c
+ * @file PORT.c
  * @brief Implementation file for PORT initialization driver
  * @description Contains the function definitions for initializing all AVR ports
  *              based on configuration from PORT_cfg.h. Sets up both direction
  *              (DDRx) and initial values (PORTx) registers.
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

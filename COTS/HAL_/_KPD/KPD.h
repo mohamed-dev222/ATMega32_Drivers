@@ -3,7 +3,7 @@
  * @brief Public header for KPD (Keypad) driver
  * @description Provides APIs to interface with a 4x4 matrix keypad.
  *              Handles key press detection and debouncing.
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 
