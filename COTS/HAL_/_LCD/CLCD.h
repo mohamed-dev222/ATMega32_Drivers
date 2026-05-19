@@ -4,7 +4,7 @@
  * @description This is the only file the user application should include.
  *              Provides APIs to control a 16x2 character LCD connected to AVR GPIO pins.
  *              Supports both 4-bit and 8-bit modes, cursor positioning and basic LCD commands.
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

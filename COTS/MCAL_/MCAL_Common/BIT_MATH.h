@@ -1,7 +1,7 @@
 /**
  * @file BIT_MATH.h
  * @brief Bit manipulation macros for register operations
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

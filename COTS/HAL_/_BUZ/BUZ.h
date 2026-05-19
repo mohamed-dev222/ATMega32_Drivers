@@ -4,7 +4,7 @@
  * @description This is the only file the user application should include.
  *              Provides APIs to control a buzzer connected to AVR GPIO pins.
  *              Supports both active high and active low configurations.
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

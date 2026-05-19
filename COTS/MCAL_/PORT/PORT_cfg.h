@@ -1,10 +1,10 @@
 /**
- * @file PORT_CONFIG.h
+ * @file PORT_CFG.h
  * @brief Public configuration header for DIO port/pin initialization
  * @description This file defines the initial direction and default values
  *              for all pins across PORTA, PORTB, PORTC, and PORTD.
  *              These settings are used during system startup.
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

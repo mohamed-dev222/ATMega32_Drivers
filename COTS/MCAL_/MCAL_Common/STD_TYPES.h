@@ -1,7 +1,7 @@
 /**
  * @file STD_TYPES.h
  * @brief Standard data types for MCAL layer
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

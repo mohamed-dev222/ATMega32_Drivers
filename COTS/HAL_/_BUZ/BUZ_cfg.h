@@ -2,7 +2,7 @@
  * @file BUZ_cfg.h
  * @brief Configuration file for Buzzer driver
  * @description Define all buzzers used in the application
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

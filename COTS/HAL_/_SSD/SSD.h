@@ -4,7 +4,7 @@
  * @description This is the only file the user application should include.
  *              Provides APIs to control 7-segment displays connected to AVR GPIO pins.
  *              Supports both common cathode and common anode types.
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

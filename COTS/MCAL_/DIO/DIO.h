@@ -3,7 +3,7 @@
  * @brief Public header for DIO (Digital Input/Output) driver
  * @description This is the only file the user application should include.
  *              Provides APIs to control AVR GPIO pins
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 

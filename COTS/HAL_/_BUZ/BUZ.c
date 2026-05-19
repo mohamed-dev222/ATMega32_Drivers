@@ -2,7 +2,7 @@
  * @file BUZ.c
  * @brief Source file for Buzzer driver
  * @description Implementation of buzzer control APIs using DIO driver
- * @author Embedded Systems Engineer
+ * @author mohamed-dev222
  * @date 2026
  */
 
