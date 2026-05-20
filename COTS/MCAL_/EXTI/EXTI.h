@@ -68,16 +68,6 @@
 #define EXTI_ON_CHANGE     3
 
 /*==============================================================================
- * NULL Definition
- *============================================================================*/
-
-/**
- * @def NULL
- * @brief Null pointer definition
- */
-#define NULL 0
-
-/*==============================================================================
  * Public Functions Prototypes
  *============================================================================*/
 
@@ -121,7 +111,7 @@ void EXTI_voidSetSignalLatch(u8 Copy_u8SenseMode, u8 Copy_u8Line);
  * @note Enables the interrupt in the GICR (General Interrupt Control Register)
  * @warning Global interrupts (I-bit in SREG) must also be enabled using sei()
  */
-u8 EXTI_voidEnableInterrupt(u8 Copy_u8Line);
+status_t EXTI_EnableInterrupt(u8 Copy_u8Line);
 
 /**
  * @brief Disable a specific external interrupt line
@@ -133,7 +123,7 @@ u8 EXTI_voidEnableInterrupt(u8 Copy_u8Line);
  * @return u8: OK (1) if successful, NOK (0) if invalid line parameter
  * @note Disables the interrupt in the GICR (General Interrupt Control Register)
  */
-u8 EXTI_voidDisableInterrupt(u8 Copy_u8Line);
+status_t  EXTI_DisableInterrupt(u8 Copy_u8Line);
 
 /**
  * @brief Clear the interrupt flag for a specific EXTI line
