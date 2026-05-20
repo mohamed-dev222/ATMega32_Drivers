@@ -44,115 +44,53 @@ void (*EXTI_CallBack[3])(void) = { NULL };
  */
 void EXTI_voidInit(void)
 {
-    #ifdef EXTI_LINE
+    /* Configure EXTI line based on pre-build settings */
+    #if EXTI_LINE == EXTI_LINE0
 
-        /* Configure EXTI line based on pre-build settings */
-        #if EXTI_LINE == EXTI_LINE1
+        /* Configure sense mode for INT0 (ISC00, ISC01 bits in MCUCR register) */
+        #if     EXTI_SENSE_MODE == EXTI_LOW_LEVEL
+            CLR_BIT(MCUCR_REG, ISC00); CLR_BIT(MCUCR_REG, ISC01);
+        #elif   EXTI_SENSE_MODE == EXTI_ON_CHANGE
+            SET_BIT(MCUCR_REG, ISC00); CLR_BIT(MCUCR_REG, ISC01);
+        #elif   EXTI_SENSE_MODE == EXTI_FALLING_EDGE
+            CLR_BIT(MCUCR_REG, ISC00); SET_BIT(MCUCR_REG, ISC01);
 
-            /* Configure sense mode for INT1 (pins ISC11, ISC10 in MCUCR register) */
-            #if     EXTI_SENSE_MODE == EXTI_LOW_LEVEL
-                CLR_BIT(MCUCR_REG, 2); CLR_BIT(MCUCR_REG, 3);
-            #elif   EXTI_SENSE_MODE == EXTI_ON_CHANGE
-                SET_BIT(MCUCR_REG, 2); CLR_BIT(MCUCR_REG, 3);
-            #elif   EXTI_SENSE_MODE == EXTI_FALLING_EDGE
-                CLR_BIT(MCUCR_REG, 2); SET_BIT(MCUCR_REG, 3);
-            #elif   EXTI_SENSE_MODE == EXTI_RISING_EDGE
-                SET_BIT(MCUCR_REG, 2); SET_BIT(MCUCR_REG, 3);
-            #endif
-
-        #elif EXTI_LINE == EXTI_LINE0
-
-            /* Configure sense mode for INT0 (pins ISC00, ISC01 in MCUCR register) */
-            #if     EXTI_SENSE_MODE == EXTI_LOW_LEVEL
-                CLR_BIT(MCUCR_REG, 0); CLR_BIT(MCUCR_REG, 1);
-            #elif   EXTI_SENSE_MODE == EXTI_ON_CHANGE
-                SET_BIT(MCUCR_REG, 0); CLR_BIT(MCUCR_REG, 1);
-            #elif   EXTI_SENSE_MODE == EXTI_FALLING_EDGE
-                CLR_BIT(MCUCR_REG, 0); SET_BIT(MCUCR_REG, 1);
-            #elif   EXTI_SENSE_MODE == EXTI_RISING_EDGE
-                SET_BIT(MCUCR_REG, 0); SET_BIT(MCUCR_REG, 1);
-            #endif
-
-        #elif EXTI_LINE == EXTI_LINE2
-
-            /* Configure sense mode for INT2 (pin ISC2 in MCUCSR register) */
-            #if     EXTI_SENSE_MODE == EXTI_FALLING_EDGE
-                CLR_BIT(MCUCSR_REG, 6);
-            #elif   EXTI_SENSE_MODE == EXTI_RISING_EDGE
-                SET_BIT(MCUCSR_REG, 6);
-            #endif
-
+        #elif   EXTI_SENSE_MODE == EXTI_RISING_EDGE
+            SET_BIT(MCUCR_REG, ISC00); SET_BIT(MCUCR_REG, ISC01);
         #else
-            #error "Wrong EXTI_LINE configuration option"
+            #error "Wrong EXTI_SENSE_MODE option for INT0"
         #endif
 
+
+    #elif EXTI_LINE == EXTI_LINE1
+
+        /* Configure sense mode for INT1 (ISC10, ISC11 bits in MCUCR register) */
+        #if     EXTI_SENSE_MODE == EXTI_LOW_LEVEL
+            CLR_BIT(MCUCR_REG, ISC10); CLR_BIT(MCUCR_REG, ISC11);
+        #elif   EXTI_SENSE_MODE == EXTI_ON_CHANGE
+            SET_BIT(MCUCR_REG, ISC10); CLR_BIT(MCUCR_REG, ISC11);
+        #elif   EXTI_SENSE_MODE == EXTI_FALLING_EDGE
+            CLR_BIT(MCUCR_REG, ISC10); SET_BIT(MCUCR_REG, ISC11);
+        #elif   EXTI_SENSE_MODE == EXTI_RISING_EDGE
+            SET_BIT(MCUCR_REG, ISC10); SET_BIT(MCUCR_REG, ISC11);
+        #else
+            #error "Wrong EXTI_SENSE_MODE option for INT1"
+        #endif
+
+
+    #elif EXTI_LINE == EXTI_LINE2
+
+        /* Configure sense mode for INT2 (ISC2 bit in MCUCSR register) */
+        #if     EXTI_SENSE_MODE == EXTI_FALLING_EDGE
+            CLR_BIT(MCUCSR_REG, ISC2);
+        #elif   EXTI_SENSE_MODE == EXTI_RISING_EDGE
+            SET_BIT(MCUCSR_REG, ISC2);
+        #else
+            #error "INT2 only supports FALLING_EDGE or RISING_EDGE"
+        #endif
+    #else
+        #error "Wrong EXTI_LINE configuration option"
     #endif
-}
-
-/**
- * @brief Set the trigger sense mode for a specific external interrupt line
- * @param Copy_u8SenseMode: Trigger mode selection
- *                          Options:
- *                          - EXTI_LOW_LEVEL
- *                          - EXTI_ON_CHANGE
- *                          - EXTI_FALLING_EDGE
- *                          - EXTI_RISING_EDGE
- * @param Copy_u8Line: External interrupt line
- *                     Options:
- *                     - EXTI_LINE0 (INT0)
- *                     - EXTI_LINE1 (INT1)
- *                     - EXTI_LINE2 (INT2)
- * @return void
- * @note This is a post-build configuration approach (runtime configurable)
- * @warning For EXTI_LINE2, only FALLING_EDGE and RISING_EDGE modes are supported
- */
-void EXTI_voidSetSignalLatch(u8 Copy_u8SenseMode, u8 Copy_u8Line)
-{
-    /* Configure sense mode for INT0 or INT1 */
-    if (Copy_u8Line >= EXTI_LINE0 && Copy_u8Line <= EXTI_LINE1)
-    {
-        /* Calculate bit position: INT0 uses bits 0-1, INT1 uses bits 2-3 */
-        Copy_u8Line = (6 - Copy_u8Line) * -2;
-
-        switch (Copy_u8SenseMode)
-        {
-            case EXTI_LOW_LEVEL:
-                CLR_BIT(MCUCR_REG, Copy_u8Line);
-                CLR_BIT(MCUCR_REG, Copy_u8Line + 1);
-                break;
-            case EXTI_ON_CHANGE:
-                SET_BIT(MCUCR_REG, Copy_u8Line);
-                CLR_BIT(MCUCR_REG, Copy_u8Line + 1);
-                break;
-            case EXTI_FALLING_EDGE:
-                CLR_BIT(MCUCR_REG, Copy_u8Line);
-                SET_BIT(MCUCR_REG, Copy_u8Line + 1);
-                break;
-            case EXTI_RISING_EDGE:
-                SET_BIT(MCUCR_REG, Copy_u8Line);
-                SET_BIT(MCUCR_REG, Copy_u8Line + 1);
-                break;
-            default:
-                /* Invalid sense mode - do nothing */
-                break;
-        }
-    }
-    /* Configure sense mode for INT2 */
-    else
-    {
-        switch (Copy_u8SenseMode)
-        {
-            case EXTI_FALLING_EDGE:
-                CLR_BIT(MCUCSR_REG, 6);
-                break;
-            case EXTI_RISING_EDGE:
-                SET_BIT(MCUCSR_REG, 6);
-                break;
-            default:
-                /* INT2 only supports edge triggering */
-                break;
-        }
-    }
 }
 
 /**
@@ -165,21 +103,19 @@ void EXTI_voidSetSignalLatch(u8 Copy_u8SenseMode, u8 Copy_u8Line)
  * @return status_t: OK if successful, NOK if invalid line parameter
  * @note Uses GICR register (General Interrupt Control Register)
  */
-u8 EXTI_voidDisableInterrupt(u8 Copy_u8Line)
+status_t EXTI_DisableInterrupt(u8 Copy_u8Line)
 {
-    u8 Local_u8ErrorState = OK;
-    
     /* Valid lines are bits 5-7 in GICR (INT0=6, INT1=7, INT2=5) */
     if ((Copy_u8Line >= EXTI_LINE2) && (Copy_u8Line <= EXTI_LINE1))
     {
         CLR_BIT(GICR_REG, Copy_u8Line);
+        return OK;
     }
     else
     {
-        Local_u8ErrorState = NOK;
+        return NOK;
     }
-    
-    return Local_u8ErrorState;
+
 }
 
 /**
@@ -192,21 +128,18 @@ u8 EXTI_voidDisableInterrupt(u8 Copy_u8Line)
  * @return status_t: OK if successful, NOK if invalid line parameter
  * @note Uses GICR register (General Interrupt Control Register)
  */
-u8 EXTI_voidEnableInterrupt(u8 Copy_u8Line)
+status_t EXTI_voidEnableInterrupt(u8 Copy_u8Line)
 {
-    u8 Local_u8ErrorState = OK;
-    
     /* Valid lines are bits 5-7 in GICR (INT0=6, INT1=7, INT2=5) */
     if ((Copy_u8Line >= EXTI_LINE2) && (Copy_u8Line <= EXTI_LINE1))
     {
         SET_BIT(GICR_REG, Copy_u8Line);
+        return OK;
     }
     else
     {
-        Local_u8ErrorState = NOK;
+        return NOK;
     }
-    
-    return Local_u8ErrorState;
 }
 
 /**
