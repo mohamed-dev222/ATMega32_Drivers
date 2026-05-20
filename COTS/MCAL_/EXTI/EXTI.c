@@ -94,6 +94,61 @@ void EXTI_voidInit(void)
 }
 
 /**
+ * @brief Set the trigger sense mode for a specific external interrupt line (runtime)
+ * @param Copy_u8SenseMode: Trigger mode (EXTI_LOW_LEVEL, EXTI_ON_CHANGE, EXTI_FALLING_EDGE, EXTI_RISING_EDGE)
+ * @param Copy_u8Line: EXTI_LINE0, EXTI_LINE1, or EXTI_LINE2
+ * @return void
+ */
+void EXTI_voidSetSignalLatch(u8 Copy_u8SenseMode, u8 Copy_u8Line)
+{
+    /* For EXTI0 & EXTI1 (INT0 and INT1) */
+    if (Copy_u8Line == EXTI_LINE0 || Copy_u8Line == EXTI_LINE1)
+    {
+        /* Convert EXTI_LINE (6 or 7) to bit position (0 or 2) */
+        u8 u8BitPos = (Copy_u8Line == EXTI_LINE0) ? 0 : 2;
+        
+        switch (Copy_u8SenseMode)
+        {
+            case EXTI_LOW_LEVEL:
+                CLR_BIT(MCUCR_REG, u8BitPos);
+                CLR_BIT(MCUCR_REG, u8BitPos + 1);
+                break;
+            case EXTI_ON_CHANGE:
+                SET_BIT(MCUCR_REG, u8BitPos);
+                CLR_BIT(MCUCR_REG, u8BitPos + 1);
+                break;
+            case EXTI_FALLING_EDGE:
+                CLR_BIT(MCUCR_REG, u8BitPos);
+                SET_BIT(MCUCR_REG, u8BitPos + 1);
+                break;
+            case EXTI_RISING_EDGE:
+                SET_BIT(MCUCR_REG, u8BitPos);
+                SET_BIT(MCUCR_REG, u8BitPos + 1);
+                break;
+            default:
+                /* Invalid sense mode - do nothing */
+                break;
+        }
+    }
+    /* For EXTI2 (INT2) */
+    else if (Copy_u8Line == EXTI_LINE2)
+    {
+        switch (Copy_u8SenseMode)
+        {
+            case EXTI_FALLING_EDGE:
+                CLR_BIT(MCUCSR_REG, ISC2);
+                break;
+            case EXTI_RISING_EDGE:
+                SET_BIT(MCUCSR_REG, ISC2);
+                break;
+            default:
+                /* INT2 only supports falling/rising edge */
+                break;
+        }
+    }
+}
+
+/**
  * @brief Disable a specific external interrupt line
  * @param Copy_u8Line: External interrupt line to disable
  *                     Options:
@@ -128,7 +183,7 @@ status_t EXTI_DisableInterrupt(u8 Copy_u8Line)
  * @return status_t: OK if successful, NOK if invalid line parameter
  * @note Uses GICR register (General Interrupt Control Register)
  */
-status_t EXTI_voidEnableInterrupt(u8 Copy_u8Line)
+status_t EXTI_EnableInterrupt(u8 Copy_u8Line)
 {
     /* Valid lines are bits 5-7 in GICR (INT0=6, INT1=7, INT2=5) */
     if ((Copy_u8Line >= EXTI_LINE2) && (Copy_u8Line <= EXTI_LINE1))
@@ -186,9 +241,7 @@ u8 EXTI_u8GetFlag(u8 Copy_u8Line)
 void EXTI_voidSetCallBack(void (*Copy_pvoidCallBack)(void), u8 Copy_u8EXTILine)
 {
     if (Copy_pvoidCallBack != NULL)
-    {
         EXTI_CallBack[Copy_u8EXTILine] = Copy_pvoidCallBack;
-    }
 }
 
 /*==============================================================================
@@ -200,8 +253,8 @@ void EXTI_voidSetCallBack(void (*Copy_pvoidCallBack)(void), u8 Copy_u8EXTILine)
  * @details Vector number: 1 (__vector_1)
  *          Corresponds to INT0 in AVR
  */
-void __vector_1(void) __attribute__((signal));
-void __vector_1(void)
+void __vector_2(void) __attribute__((signal));
+void __vector_2(void)
 {
     if (EXTI_CallBack[0] != NULL)
     {
@@ -215,8 +268,8 @@ void __vector_1(void)
  * @details Vector number: 2 (__vector_2)
  *          Corresponds to INT1 in AVR
  */
-void __vector_2(void) __attribute__((signal));
-void __vector_2(void)
+void __vector_3(void) __attribute__((signal));
+void __vector_3(void)
 {
     if (EXTI_CallBack[1] != NULL)
     {
@@ -230,8 +283,8 @@ void __vector_2(void)
  * @details Vector number: 3 (__vector_3)
  *          Corresponds to INT2 in AVR
  */
-void __vector_3(void) __attribute__((signal));
-void __vector_3(void)
+void __vector_4(void) __attribute__((signal));
+void __vector_4(void)
 {
     if (EXTI_CallBack[2] != NULL)
     {
