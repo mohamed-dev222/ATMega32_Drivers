@@ -11,7 +11,8 @@
 #ifndef BUZ_H_
 #define BUZ_H_
 
-#include "../../MCAL_/MCAL_Common/STD_TYPES.h"
+#include "././LIP/STD_TYPES.h"
+
 #include "../../MCAL_/DIO/DIO.h"
 
 /*==============================================================================

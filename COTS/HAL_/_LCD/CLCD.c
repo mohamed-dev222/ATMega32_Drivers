@@ -6,8 +6,8 @@
  * @date 2026
  */
 
-#include "../../MCAL_/MCAL_Common/STD_TYPES.h"
-#include "../../MCAL_/MCAL_Common/BIT_MATH.h"
+#include "././LIP/STD_TYPES.h"
+#include "././LIP/BIT_MATH.h"
 #include "../../MCAL_/DIO/DIO.h"
 #include "CLCD_cfg.h"
 #include "CLCD.h"

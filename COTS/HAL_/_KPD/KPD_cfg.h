@@ -1,6 +1,7 @@
 #ifndef KPD_cfg_H_
 #define KPD_cfg_H_
-#include "../../MCAL_/MCAL_Common/STD_TYPES.h"
+#include "././LIP/STD_TYPES.h"
+
 
 #define KPD_ROW_INIT DIO_PIN0
 #define KPD_ROW_END DIO_PIN3

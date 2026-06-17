@@ -11,7 +11,8 @@
 #ifndef SSD_H_
 #define SSD_H_
 
-#include "../../MCAL_/MCAL_Common/STD_TYPES.h"
+#include "././LIP/STD_TYPES.h"
+
 
 /*==============================================================================
  * Ports Identification Macros

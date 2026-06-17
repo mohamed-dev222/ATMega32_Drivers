@@ -10,8 +10,8 @@
 #ifndef DIO_H_
 #define DIO_H_
 
-#include "./MCAL_Common/STD_TYPES.h"
-#include "./MCAL_Common/BIT_MATH.h"
+#include "././LIP/STD_TYPES.h"
+#include "././LIP/BIT_MATH.h"
 #include "DIO_cfg.h"
 
 /*==============================================================================

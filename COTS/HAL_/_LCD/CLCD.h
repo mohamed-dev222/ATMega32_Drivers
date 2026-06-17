@@ -11,7 +11,7 @@
 #ifndef CLCD_INTERFACE_H_
 #define CLCD_INTERFACE_H_
 
-#include "../../MCAL_/MCAL_Common/STD_TYPES.h"
+#include "././LIP/STD_TYPES.h"
 #include "CLCD_cfg.h"
 
 #if CLCD_MODE == 4
