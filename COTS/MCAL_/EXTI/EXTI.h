@@ -10,7 +10,7 @@
 #ifndef EXTI_INTERFACE_H_
 #define EXTI_INTERFACE_H_
 
-#include "../MCAL_Common/STD_TYPES.h"
+#include "././LIP/STD_TYPES.h"
 
 /*==============================================================================
  * EXTI Line Definitions

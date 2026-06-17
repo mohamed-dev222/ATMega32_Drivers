@@ -12,7 +12,7 @@
  * Includes
  *============================================================================*/
 
-#include "../MCAL_Common/STD_TYPES.h"   /* Standard data types (u8, u16, etc.) */
+#include "././LIP/STD_TYPES.h" /* Standard data types (u8, u16, etc.) */
 #include "PORT_cfg.h"                    /* Pin configuration settings */
 #include "PORT_private.h"                /* Register addresses and concatenation macros */
 #include "PORT.h"                        /* Public function prototypes */

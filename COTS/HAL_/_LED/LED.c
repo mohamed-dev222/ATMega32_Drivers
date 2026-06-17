@@ -1,6 +1,6 @@
 #include "LED.h"
-#include "../../MCAL_/MCAL_Common/STD_TYPES.h"
-#include "../../MCAL_/MCAL_Common/BIT_MATH.h"
+#include "././LIP/STD_TYPES.h"
+#include "././LIP/BIT_MATH.h"
 #include "../../MCAL_/DIO/DIO.h"
 
 void LED_Int(LED_Type LED_cfg)
