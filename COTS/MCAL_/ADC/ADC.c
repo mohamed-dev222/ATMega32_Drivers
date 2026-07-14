@@ -343,10 +343,10 @@ void __vector_16 (void)
 	{
 		/*Return Conversion Result*/
 		#if ADC_ADJUSTMENT == RIGHT_ADJUSTMENT
-			*ADC_pu16AsynchConversionResult = (ADCL|(ADCH << 8))  ;
+			ADC_pu16AsynchConversionResult[ADC_u8Index] = (ADCL|(ADCH<<8));
 
 		#elif ADC_ADJUSTMENT == LEFT_ADJUSTMENT
-			*ADC_pu16AsynchConversionResult = ADCH ;
+			ADC_pu16AsynchConversionResult[ADC_u8Index] = ADCH ;
 		#else
 			#error "Wrong ADC_ADJUSTMENT config"
 
