@@ -11,7 +11,7 @@
 #ifndef LED_H_
 #define LED_H_
 
-#include "././LIP/STD_TYPES.h"
+#include "../../LIP/STD_TYPES.h"
 
 
 /*==============================================================================

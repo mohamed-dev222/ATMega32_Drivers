@@ -6,8 +6,8 @@
  */
 
 //=====================================================================================================================
-#include "././LIP/STD_TYPES.h"
-#include "././LIP/BIT_MATH.h"
+#include "../../LIP/STD_TYPES.h"
+#include "../../LIP/BIT_MATH.h"
 
 #include "ADC.h"
 #include "ADC_cfg.h"
