@@ -75,6 +75,6 @@ typedef struct
  * @retval 0 Failed
  * @retval 1 Success
  */
-status_t LM35_u8GetTemp(LM35_CONFIG * lm35, u8 * Copy_u8TempValue);
+u8 LM35_u8GetTemp(LM35_CONFIG * lm35, u8 * Copy_u8TempValue);
 
 #endif /* LM35_H_ */

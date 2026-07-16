@@ -11,9 +11,9 @@
 #include "LM35.h"
 #include "LM35_private.h"
 
-status_t LM35_u8GetTemp(LM35_CONFIG *lm35, u8 *Copy_u8TempValue)
+u8 LM35_u8GetTemp(LM35_CONFIG *lm35, u8 *Copy_u8TempValue)
 {
-    status_t Local_u8ErrorState = OK;
+    u8 Local_u8ErrorState = OK;
 
     u16 Local_u16ADCResult = 0;
     u16 Local_u16AnalogValue = 0;
