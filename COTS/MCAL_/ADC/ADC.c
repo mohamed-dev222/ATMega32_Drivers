@@ -137,9 +137,9 @@ void ADC_voidInterruptDisable (void)
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
-u8 ADC_u8SetPrescaler (u8 Copy_u8Prescaler)
+status_t ADC_u8SetPrescaler (u8 Copy_u8Prescaler)
 {
-	u8 Local_u8ErrorState = OK ;
+	status_t Local_ErrorState = OK ;
 
 	if (Copy_u8Prescaler < 8)
 	{
@@ -147,15 +147,19 @@ u8 ADC_u8SetPrescaler (u8 Copy_u8Prescaler)
 		ADSAR &= ADC_PRE_MASK ;
 		ADSAR |= Copy_u8Prescaler ;
 	}
+	else
+	{
+		Local_ErrorState = OUT_OF_RANGE ;
+	}
 
-	return Local_u8ErrorState ;
+	return Local_ErrorState ;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
-u8 ADC_u8GetResultSync (u8 Copy_u8Channel , u16 * Copy_pu16Result)
+status_t ADC_u8GetResultSync (u8 Copy_u8Channel , u16 * Copy_pu16Result)
 {
-	u8 Local_u8ErrorState = OK ;
+	status_t Local_ErrorState = OK ;
 	u32 Local_u32TimeoutCounter = 0 ;
 	if (Copy_pu16Result != NULL)
 	{
@@ -178,7 +182,7 @@ u8 ADC_u8GetResultSync (u8 Copy_u8Channel , u16 * Copy_pu16Result)
 			}
 			if (Local_u32TimeoutCounter == ADC_TIMEOUT)
 			{
-				Local_u8ErrorState = TIMEOUT_STATE ;
+				Local_ErrorState = TIMEOUT;
 			}
 			else
 			{
@@ -202,23 +206,23 @@ u8 ADC_u8GetResultSync (u8 Copy_u8Channel , u16 * Copy_pu16Result)
 		}
 		else
 		{
-			Local_u8ErrorState = BUSY_STATE ;
+			Local_ErrorState = BUSY;
 		}
 
 
 	}
 	else
 	{
-		Local_u8ErrorState = NULL_POINTER ;
+		Local_ErrorState = NULL_POINTER ;
 	}
-	return Local_u8ErrorState ;
+	return Local_ErrorState ;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
-u8 ADC_u8StartConversionAsynch (u8 Copy_u8Channel , u16 * Copy_pu16Result , void (*Copy_pvNotificationFunc)(void))
+status_t ADC_u8StartConversionAsynch (u8 Copy_u8Channel , u16 * Copy_pu16Result , void (*Copy_pvNotificationFunc)(void))
 {
-	u8 Local_u8ErrorState = OK ;
+	status_t Local_ErrorState = OK ;
 
 	if ((Copy_pu16Result != NULL) && (Copy_pvNotificationFunc != NULL))
 	{
@@ -248,22 +252,22 @@ u8 ADC_u8StartConversionAsynch (u8 Copy_u8Channel , u16 * Copy_pu16Result , void
 		}
 		else
 		{
-			Local_u8ErrorState = BUSY_STATE ;
+			Local_ErrorState = BUSY ;
 		}
 	}
 	else
 	{
-		Local_u8ErrorState = NULL_POINTER ;
+		Local_ErrorState = NULL_POINTER ;
 	}
 
-	return Local_u8ErrorState ;
+	return Local_ErrorState ;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
-u8 ADC_u8StartChainAsynch (Chain_t * Copy_Chain)
+status_t ADC_u8StartChainAsynch (Chain_t * Copy_Chain)
 {
-	u8 Local_u8ErrorState = OK ;
+	status_t Local_ErrorState = OK ;
 
 	if ((Copy_Chain != NULL) && (Copy_Chain->Channel != NULL) && (Copy_Chain->NotificationFunc != NULL) && (Copy_Chain->Result))
 	{
@@ -296,15 +300,15 @@ u8 ADC_u8StartChainAsynch (Chain_t * Copy_Chain)
 		}
 		else
 		{
-			Local_u8ErrorState = BUSY_STATE ;
+			Local_ErrorState = BUSY ;
 		}
 
 	}
 	else
 	{
-		Local_u8ErrorState = NULL_POINTER ;
+		Local_ErrorState = NULL_POINTER ;
 	}
-	return Local_u8ErrorState ;
+	return Local_ErrorState ;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

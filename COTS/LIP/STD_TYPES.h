@@ -31,10 +31,15 @@ typedef enum {
 
 /* Function return status */
 typedef enum {
-    OK       = 0,                    /**< Operation completed successfully */
-    NOK      = 1,                    /**< Operation failed */
-    TIMEOUT  = 2,                    /**< Operation timeout */
-    INVALID  = 3                     /**< Invalid parameter */
+    OK            = 0,                    /**< Operation completed successfully */
+    NOK           = 1,                    /**< Operation failed */
+    TIMEOUT       = 2,                    /**< Operation timeout */
+    INVALID       = 3,                    /**< Invalid parameter */
+    BUSY          = 4,                    /**< Resource is busy */
+    NULL_POINTER  = 5,                    /**< Null pointer passed as argument */
+    OUT_OF_RANGE  = 6,                    /**< Value out of valid range */
+    NOT_INITIALIZED = 7,                  /**< Module not initialized */
+    NOT_SUPPORTED = 8                     /**< Operation not supported */
 } status_t;
 
 /* Null pointer definition */

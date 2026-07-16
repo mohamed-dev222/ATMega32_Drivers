@@ -107,7 +107,7 @@ void EXTI_voidSetSignalLatch(u8 Copy_u8SenseMode, u8 Copy_u8Line);
  *                     - EXTI_LINE0 (INT0)
  *                     - EXTI_LINE1 (INT1)
  *                     - EXTI_LINE2 (INT2)
- * @return u8: OK (1) if successful, NOK (0) if invalid line parameter
+ * @return status_t: OK if successful, NOK if invalid line parameter
  * @note Enables the interrupt in the GICR (General Interrupt Control Register)
  * @warning Global interrupts (I-bit in SREG) must also be enabled using sei()
  */
@@ -120,7 +120,7 @@ status_t EXTI_EnableInterrupt(u8 Copy_u8Line);
  *                     - EXTI_LINE0 (INT0)
  *                     - EXTI_LINE1 (INT1)
  *                     - EXTI_LINE2 (INT2)
- * @return u8: OK (1) if successful, NOK (0) if invalid line parameter
+ * @return status_t: OK if successful, NOK if invalid line parameter
  * @note Disables the interrupt in the GICR (General Interrupt Control Register)
  */
 status_t  EXTI_DisableInterrupt(u8 Copy_u8Line);

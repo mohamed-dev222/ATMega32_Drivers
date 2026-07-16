@@ -11,15 +11,15 @@
 #include "LM35.h"
 #include "LM35_private.h"
 
-u8 LM35_u8GetTemp(LM35_CONFIG *lm35, u8 *Copy_u8TempValue)
+status_t LM35_u8GetTemp(LM35_CONFIG *lm35, u8 *Copy_u8TempValue)
 {
-    u8 Local_u8ErrorState = OK;
+    status_t Local_ErrorState = OK;
 
     u16 Local_u16ADCResult = 0;
     u16 Local_u16AnalogValue = 0;
     u16 Local_u16ADCReference;
 
-    if((lm35 == NULL) || (Copy_u8TempValue == NULL))
+    if ((lm35 == NULL) || (Copy_u8TempValue == NULL))
     {
         return NULL_POINTER;
     }
@@ -28,12 +28,12 @@ u8 LM35_u8GetTemp(LM35_CONFIG *lm35, u8 *Copy_u8TempValue)
     Local_u16ADCReference = ((u16)lm35->Copy_u8ADCVoltageReference) * 1000U;
 
     /* Read ADC */
-    Local_u8ErrorState = ADC_u8GetResultSync(lm35->Copy_u8LM35Channel,
+    Local_ErrorState = ADC_u8GetResultSync(lm35->Copy_u8LM35Channel,
                                             &Local_u16ADCResult);
 
-    if(Local_u8ErrorState != OK)
+    if (Local_ErrorState != OK)
     {
-        return Local_u8ErrorState;
+        return Local_ErrorState;
     }
 
     if(lm35->Copy_u8ADCResolution == ADC_RESOLUTION_10_BIT)

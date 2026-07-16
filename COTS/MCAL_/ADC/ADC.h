@@ -13,11 +13,8 @@
 /*==============================================================================
  * Error States / Return Values
  *============================================================================*/
-#define OK              0   /* Function executed successfully */
-#define NOK             1   /* Function execution failed */
-#define BUSY_STATE      2   /* ADC module is busy with another operation */
-#define TIMEOUT_STATE   3   /* Conversion timed out (no response within timeout period) */
-#define NULL_POINTER    4   /* Null pointer passed as argument */
+/* Uses shared status_t from STD_TYPES.h: OK, NOK, TIMEOUT, INVALID,
+   BUSY, NULL_POINTER, OUT_OF_RANGE, NOT_INITIALIZED, NOT_SUPPORTED */
 
 /*==============================================================================
  * ADC Module State Flags
@@ -122,32 +119,32 @@ void ADC_voidInit               ( void                                          
  * @brief Get ADC conversion result in synchronous (blocking) mode
  * @param Copy_u8Channel: ADC channel to read from (ADC_CHANNEL0 to ADC_CHANNEL7)
  * @param Copy_pu16Result: Pointer to store the conversion result (10-bit or 8-bit based on adjustment)
- * @return OK if successful, BUSY_STATE if ADC is busy, TIMEOUT_STATE if conversion timed out, NULL_POINTER if result pointer is NULL
+ * @return status_t: OK if successful, BUSY if ADC is busy, TIMEOUT if conversion timed out, NULL_POINTER if result pointer is NULL
  * @details This function blocks until conversion completes or timeout occurs
  * @note Uses polling on ADIF flag with timeout mechanism
  */
-u8   ADC_u8GetResultSync        ( u8 Copy_u8Channel , u16* Copy_pu16Result                                         );
+status_t   ADC_u8GetResultSync        ( u8 Copy_u8Channel , u16* Copy_pu16Result                                         );
 
 /**
  * @brief Start ADC conversion in asynchronous (non-blocking) mode for single channel
  * @param Copy_u8Channel: ADC channel to read from (ADC_CHANNEL0 to ADC_CHANNEL7)
  * @param Copy_pu16Reading: Pointer to store the conversion result when complete
  * @param Copy_pvNotificationFunc: Callback function to be called when conversion completes
- * @return OK if successful, BUSY_STATE if ADC is busy, NULL_POINTER if parameters are NULL
+ * @return status_t: OK if successful, BUSY if ADC is busy, NULL_POINTER if parameters are NULL
  * @details Conversion continues in background. The notification function is called from ISR context
  * @warning The callback function should be lightweight and avoid long operations
  */
-u8   ADC_u8StartConversionAsynch( u8 Copy_u8Channel , u16* Copy_pu16Reading , void(*Copy_pvNotificationFunc)(void) );
+status_t   ADC_u8StartConversionAsynch( u8 Copy_u8Channel , u16* Copy_pu16Reading , void(*Copy_pvNotificationFunc)(void) );
 
 /**
  * @brief Start ADC chain conversion in asynchronous (non-blocking) mode
  * @param Copy_Chain: Pointer to Chain_t structure containing channels, results array, size, and callback
- * @return OK if successful, BUSY_STATE if ADC is busy, NULL_POINTER if chain or its members are NULL
+ * @return status_t: OK if successful, BUSY if ADC is busy, NULL_POINTER if chain or its members are NULL
  * @details Converts multiple channels sequentially. Results are stored in the Result array.
  *          Notification function is called after all channels are converted
  * @note The Channel array and Result array must be allocated by the user
  */
-u8   ADC_u8StartChainAsynch     ( Chain_t * Copy_Chain);
+status_t   ADC_u8StartChainAsynch     ( Chain_t * Copy_Chain);
 
 /**
  * @brief Enable the ADC peripheral
@@ -189,6 +186,6 @@ void ADC_voidInterruptDisable (void);
  * @details Modifies the ADC clock division factor. Valid values 0-7
  * @note Changing prescaler during conversion may affect result accuracy
  */
-u8 ADC_u8SetPrescaler (u8 Copy_u8Prescaler);
+status_t ADC_u8SetPrescaler (u8 Copy_u8Prescaler);
 
 #endif /* ADC_INTERFACE_H_ */
